@@ -1,0 +1,26 @@
+{
+  "name": "taskflow-backend",
+  "version": "1.0.0",
+  "description": "TaskFlow API — a full-stack demo covering Node/Express/MySQL/Redis/JWT/Security concepts",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "demo:async": "node src/utils/asyncPatternsDemo.js",
+    "worker:report": "node src/workers/reportWorker.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.1",
+    "mysql2": "^3.11.0",
+    "redis": "^4.7.0",
+    "xss": "^1.0.15"
+  }
+}

@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Secrets — NEVER commit your real .env, only .env.example
+.env
+.env.local
+.env.*.local
+
+# Uploaded files (user content, not source code)
+src/uploads/*
+!src/uploads/.gitkeep
+
+# Logs
+*.log
+npm-debug.log*
+
+# PM2 runtime
+.pm2/
