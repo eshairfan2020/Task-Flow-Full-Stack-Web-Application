@@ -1,10 +1,9 @@
 # TaskFlow
 
-A full-stack task/team management app built to demonstrate every topic on your roadmap in real, working code — not just isolated snippets. React + Node/Express + MySQL + Redis + JWT auth.
+A full-stack task/team management app built to demonstrate every topic on your roadmap in real, working code not just isolated snippets. React + Node/Express + MySQL + Redis + JWT auth.
 
 Two things to read together:
 1. **This README** — the topic-by-topic map below tells you exactly which file to open for each concept.
-2. **The code itself** — every file has comments explaining *why*, not just *what*.
 
 ---
 
