@@ -52,7 +52,7 @@ I ran all three of these myself while building this and pasted real output into 
 | Promise.race | `promiseCombinatorsDemo()` |
 | Sequential vs Concurrent | `sequentialDemo()` vs `concurrentDemo()` (timed, ~200ms vs ~100ms) |
 | Event Loop | `eventLoopDemo()` |
-| Microtasks / Macrotasks | `eventLoopDemo()` — logs the actual execution order |
+| Microtasks / Macrotasks | `eventLoopDemo()` logs the actual execution order |
 | API Calls | `frontend/src/api/client.js` (`apiFetch`) |
 
 ### React
@@ -68,7 +68,7 @@ I ran all three of these myself while building this and pasted real output into 
 | useMemo | `Dashboard.jsx` → `columns` (grouping tasks by status) |
 | useCallback | `Dashboard.jsx` → `loadTasks`, `handleCardClick`; `AuthContext.jsx` → `login`/`register`/`logout` |
 | Context API | `context/AuthContext.jsx` |
-| Prop Drilling | explained in a comment at the top of `AuthContext.jsx` — Context is the fix |
+| Prop Drilling | explained in a comment at the top of `AuthContext.jsx` Context is the fix |
 | Virtual DOM | `main.jsx` comment on `createRoot`; `TaskCard.jsx` uses `React.memo` to reduce re-diffing |
 
 ### Node.js
@@ -118,7 +118,7 @@ I ran all three of these myself while building this and pasted real output into 
 | Topic | Where |
 |---|---|
 | Hashing | `utils/hash.js` (bcrypt, one-way) |
-| Encryption | explained vs hashing in a comment in `hash.js` (not used for passwords — two-way, needs a key) |
+| Encryption | explained vs hashing in a comment in `hash.js` (not used for passwords two-way, needs a key) |
 | bcrypt | `utils/hash.js` |
 | CORS | `server.js` (`cors({ origin: CLIENT_ORIGIN })`) |
 | CSRF | see "Next steps" below — this app uses Bearer tokens in a header (not cookies), which sidesteps classic CSRF; noted where relevant |
@@ -132,7 +132,7 @@ I ran all three of these myself while building this and pasted real output into 
 ### MySQL
 | Topic | Where |
 |---|---|
-| Tables / Primary Key / Foreign Key / Candidate Key / Composite Key | `backend/src/db/schema.sql` — every constraint is commented |
+| Tables / Primary Key / Foreign Key / Candidate Key / Composite Key | `backend/src/db/schema.sql` every constraint is commented |
 | Normalization / 1NF / 2NF / 3NF / Partial & Transitive Dependency | comments directly above each table in `schema.sql` |
 | Indexes | `idx_tasks_team_status`, `idx_tasks_assignee`, `idx_comments_task` in `schema.sql` |
 | ERD | see `docs/erd.md` (text description) — draw it in your tool of choice from the FK relationships in `schema.sql` |
@@ -149,8 +149,8 @@ I ran all three of these myself while building this and pasted real output into 
 | Webhooks | see "Next steps" below |
 | Storage Buckets | `server.js` comment on `/uploads` — noted where you'd swap to S3/GCS |
 | Multer | `config/multer.js`, `controllers/fileController.js` |
-| ORM / ODM | this project deliberately uses raw SQL (`mysql2`) so the JOIN/GROUP BY/normalization topics stay visible — see "Next steps" for the ORM equivalent |
-| Microservices / Monolith / Tight vs Loose Coupling / Decoupling | see "Next steps" below — this app is intentionally a monolith; `eventEmitter.js` shows the in-process seam where you'd cut it into services |
+| ORM / ODM | this project deliberately uses raw SQL (`mysql2`) so the JOIN/GROUP BY/normalization topics stay visible see "Next steps" for the ORM equivalent |
+| Microservices / Monolith / Tight vs Loose Coupling / Decoupling | see "Next steps" below this app is intentionally a monolith; `eventEmitter.js` shows the in-process seam where you'd cut it into services |
 
 ---
 
@@ -158,13 +158,13 @@ I ran all three of these myself while building this and pasted real output into 
 
 These need a real server/cluster to actually exercise, so rather than fake them, here's what each one is and where you'd plug it in:
 
-- **RabbitMQ / Kafka / Message Queues / Event Streaming** — `utils/eventEmitter.js` already isolates "something happened" (`task:created`) from "what happens next." In a real deployment you'd replace the in-process `.emit()` with `channel.publish()` (RabbitMQ) or `producer.send()` (Kafka) so other *services* — not just other code in the same process — can react. Start here: [RabbitMQ tutorials](https://www.rabbitmq.com/tutorials), [Kafka introduction](https://kafka.apache.org/intro).
+- **RabbitMQ / Kafka / Message Queues / Event Streaming** — `utils/eventEmitter.js` already isolates "something happened" (`task:created`) from "what happens next." In a real deployment you'd replace the in-process `.emit()` with `channel.publish()` (RabbitMQ) or `producer.send()` (Kafka) so other *services*  not just other code in the same process — can react. Start here: [RabbitMQ tutorials](https://www.rabbitmq.com/tutorials), [Kafka introduction](https://kafka.apache.org/intro).
 - **Webhooks** — same seam as above, but the "other side" is an external URL you `POST` to (e.g. notify a Slack channel when a task is marked done). Start here: [webhooks.fyi](https://webhooks.fyi/).
-- **Microservices vs Monolith / Tight vs Loose Coupling / Decoupling** — this app is one monolith on purpose (simpler to run and study). Splitting `auth`, `tasks`, and `teams` into separately deployable services — each with its own DB — is the natural next exercise once you're comfortable with this codebase. Start here: [microservices.io](https://microservices.io/).
+- **Microservices vs Monolith / Tight vs Loose Coupling / Decoupling** — this app is one monolith on purpose (simpler to run and study). Splitting `auth`, `tasks`, and `teams` into separately deployable services — each with its own DB is the natural next exercise once you're comfortable with this codebase. Start here: [microservices.io](https://microservices.io/).
 - **CAP Theorem** — a distributed-systems tradeoff (Consistency vs Availability under a network Partition) that only becomes concrete once you have multiple database nodes; a single local MySQL instance can't demonstrate it. Start here: [Julia Evans' CAP theorem explainer](https://jvns.ca/) or the original Brewer's conjecture writeups.
 - **ORM/ODM (e.g. Prisma, Sequelize, Mongoose)** — this project uses raw SQL intentionally so you keep seeing the JOIN/GROUP BY/normalization concepts directly. Once those are solid, try re-implementing `models/taskModel.js` with [Prisma](https://www.prisma.io/docs) to see what an ORM abstracts away.
-- **OWASP Top 10 (full list)** — this app covers several items directly (injection, auth, XSS) but not all ten. Full reference: [owasp.org/Top10](https://owasp.org/www-project-top-ten/).
-- **CSRF** — this app avoids the classic cookie-based CSRF vector by sending the JWT in an `Authorization` header instead of a cookie. If you switch to cookie-based sessions, you'll need CSRF tokens — see [OWASP's CSRF prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
+- **OWASP Top 10 (full list)**  this app covers several items directly (injection, auth, XSS) but not all ten. Full reference: [owasp.org/Top10](https://owasp.org/www-project-top-ten/).
+- **CSRF** — this app avoids the classic cookie-based CSRF vector by sending the JWT in an `Authorization` header instead of a cookie. If you switch to cookie-based sessions, you'll need CSRF tokens see [OWASP's CSRF prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
 - **Storage Buckets (S3/GCS)** — `/uploads` currently writes to local disk via Multer. Swapping `multer.diskStorage` for `multer-s3` (or a GCS equivalent) is a small, well-documented change once you have a cloud account to test against.
 
 ---
