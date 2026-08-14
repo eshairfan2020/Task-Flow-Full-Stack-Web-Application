@@ -1,6 +1,3 @@
-// MySQL connection pool (mysql2/promise) — reused across the whole app.
-// A pool (not a single connection) lets Express handle concurrent requests
-// without each one blocking on the last query.
 const mysql = require('mysql2/promise');
 
 const pool = mysql.createPool({
