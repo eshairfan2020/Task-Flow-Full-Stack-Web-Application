@@ -6,7 +6,7 @@ const { ApiError } = require('../middleware/errorHandler');
 const appEvents = require('../utils/eventEmitter');
 
 function hashToken(token) {
-  // We never store raw refresh tokens — only a hash, same principle as passwords.
+
   return crypto.createHash('sha256').update(token).digest('hex');
 }
 
@@ -39,8 +39,7 @@ async function login(req, res, next) {
     const { email, password } = req.body;
 
     const user = await userModel.findUserByEmail(email);
-    // Same error message whether the email doesn't exist or the password is
-    // wrong — don't leak which one it was (prevents user enumeration).
+
     if (!user) throw new ApiError(401, 'Invalid email or password');
 
     const valid = await comparePassword(password, user.password_hash);
@@ -77,8 +76,6 @@ async function refresh(req, res, next) {
     const stored = await userModel.findValidRefreshToken(payload.sub, hashToken(refreshToken));
     if (!stored) throw new ApiError(401, 'Refresh token was revoked or not recognized');
 
-    // Rotate: issue a brand new access token (refresh token itself is reused
-    // until it expires — a stricter setup would rotate + revoke it here too).
     const newAccessToken = signAccessToken({ sub: payload.sub, email: payload.email, role: payload.role });
 
     res.json({ accessToken: newAccessToken });
