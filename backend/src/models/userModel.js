@@ -1,7 +1,3 @@
-// Every query uses `?` placeholders — mysql2 escapes the values for us.
-// SQL Injection prevention: NEVER string-concatenate user input into SQL.
-//   BAD:  `SELECT * FROM users WHERE email = '${email}'`
-//   GOOD: pool.query('SELECT * FROM users WHERE email = ?', [email])
 const pool = require('../config/db');
 
 async function createUser({ name, email, passwordHash, role = 'member' }) {
