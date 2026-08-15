@@ -1,15 +1,7 @@
 /**
  * fork() vs spawn() — both come from Node's `child_process` module and both
  * create a new OS process (not a thread), but for different jobs:
- *
- * - spawn(): runs any external command (git, ffmpeg, a shell script) and
- *   streams stdout/stderr back. No Node-specific channel.
- * - fork(): a special case of spawn() specifically for running another
- *   NODE.JS script as a child process, with a built-in IPC channel so the
- *   parent and child can .send() messages to each other like an EventEmitter.
- *
- * Run directly: node src/workers/forkSpawnDemo.js
- */
+ 
 const { spawn, fork } = require('child_process');
 const path = require('path');
 
