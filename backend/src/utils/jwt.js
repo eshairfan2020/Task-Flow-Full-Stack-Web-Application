@@ -1,7 +1,7 @@
 // JWT (JSON Web Token) helpers.
 // Access tokens: short-lived, sent as a Bearer token on every request.
 // Refresh tokens: long-lived, stored (hashed) in the DB, used only to mint
-// a new access token — this is the Access Token / Refresh Token split.
+// a new access token this is the Access Token / Refresh Token split.
 const jwt = require('jsonwebtoken');
 
 function signAccessToken(payload) {
