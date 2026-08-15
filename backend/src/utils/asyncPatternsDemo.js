@@ -1,17 +1,3 @@
-/**
- * asyncPatternsDemo.js
- * -----------------------------------------------------------------
- * A standalone, runnable tour of every async/JS-core concept on the
- * roadmap. Run it directly:
- *
- *   node src/utils/asyncPatternsDemo.js
- *
- * Nothing here depends on Express/MySQL/Redis — it's pure Node so you
- * can read top-to-bottom and run each section in isolation if you
- * comment the others out.
- * -----------------------------------------------------------------
- */
-
 // ---------------------------------------------------------------
 // var / let / const
 // ---------------------------------------------------------------
@@ -168,7 +154,7 @@ function eventLoopDemo() {
 }
 
 // ---------------------------------------------------------------
-// "API Calls" — same fakeApiCall stands in for a real fetch()/axios call.
+// "API Calls"same fakeApiCall stands in for a real fetch()/axios call.
 // In the actual app, src/api/client.js on the frontend does this for real.
 // ---------------------------------------------------------------
 
