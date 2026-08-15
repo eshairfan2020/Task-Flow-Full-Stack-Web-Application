@@ -1,11 +1,9 @@
 /**
  * Worker Threads demo.
- * Node is single-threaded for JS execution — a CPU-heavy loop (e.g. crunching
+ * Node is single-threaded for JS execution a CPU-heavy loop (e.g. crunching
  * a large workload report) would block the event loop and stall every other
- * request. worker_threads runs that work on a separate OS thread instead.
- *
- * Run directly:  node src/workers/reportWorker.js
- */
+ * request. worker threads runs that work on a separate OS thread instead.
+  */
 const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
 
 function heavyComputation(n) {
