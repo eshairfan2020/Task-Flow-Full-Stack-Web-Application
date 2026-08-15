@@ -1,6 +1,3 @@
-// Cache-aside pattern: check Redis first; on a miss, run the DB query,
-// store the result with a TTL, then return it. Cuts repeated-read load
-// off MySQL for hot endpoints like "list tasks for a team".
 const { redisClient } = require('../config/redis');
 
 const DEFAULT_TTL_SECONDS = 30;
