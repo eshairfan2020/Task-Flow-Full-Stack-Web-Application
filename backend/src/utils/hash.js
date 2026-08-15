@@ -1,7 +1,7 @@
 // Hashing vs Encryption:
-// - Hashing (bcrypt) is one-way — used for passwords. You never "decrypt" a
+// - Hashing (bcrypt) is one-way used for passwords. You never "decrypt" a
 //   password hash, you only re-hash the login attempt and compare.
-// - Encryption is two-way (needs a key to reverse) — used for data you must
+// - Encryption is two-way (needs a key to reverse) used for data you must
 //   read back later (not used for passwords here).
 const bcrypt = require('bcrypt');
 
